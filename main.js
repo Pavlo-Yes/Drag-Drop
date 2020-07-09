@@ -12,42 +12,18 @@ dropRegion.addEventListener('dragover', preventDefault);
 dropRegion.addEventListener('drop', preventDefault);
 
 function handleDrop(e) {
-    var dt = e.dataTransfer,
-        files = dt.files;
+    var data = e.dataTransfer,
+        files = data.files;
 
-    if (files.length) {
-        handleFiles(files);
-    } else {
-        var html = dt.getData('text/html'),
-            match = html && /\bsrc="?([^"\s]+)"?\s*/.exec(html),
-            url = match && match[1];
+    handleFiles(files)
+}
 
-        if (url) {
-            uploadImageFromURL(url);
-            return;
-        }
-    }
+dropRegion.addEventListener('drop', handleDrop, false);
 
-    function uploadImageFromURL(url) {
-        var img = new Image;
-        var c = document.createElement("canvas");
-        var ctx = c.getContext("2d");
-
-        img.onload = function () {
-            c.width = this.naturalWidth;
-            c.height = this.naturalHeight;
-            ctx.drawImage(this, 0, 0);
-            c.toBlob(function (blob) {
-
-                handleFiles([blob]);
-
-            }, "image/png");
-        };
-        img.onerror = function () {
-            alert("Error in uploading");
-        };
-        img.crossOrigin = "";
-        img.src = url;
+function handleFiles(files) {
+    for (var i = 0, len = files.length; i < len; i++) {
+        if (validateImage(files[i]))
+            previewAnduploadImage(files[i]);
     }
 }
 
