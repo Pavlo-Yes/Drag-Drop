@@ -1,0 +1,27 @@
+#drop-region {
+            background-color: #ffbd72;
+            border-radius: 20px;
+            width: 80%;
+            padding: 60px 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: .5s;
+        }
+        #drop-region:hover {
+            box-shadow: 0 0 45px rgba(0, 0, 0, 0.1);
+        }
+        #image-preview {
+            margin-top: 20px;
+        }
+        #image-preview .image-view {
+            display: inline-block;
+            margin-right: 20px;
+            margin-bottom: 20px;
+        }
+        #image-preview .image-view img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+        #image-preview .overlay {
+            background: rgba(1, 0, 1, 0.94);
+        }
